@@ -1,7 +1,10 @@
 import express from "express";
+import { edit } from "../controllers/videoController";
+import { deleteUser } from "../controllers/userController";
 
 const userRouter = express.Router();
-const handleEditUser = (req, res ) => res.send("Edit user");
-userRouter.get("/edit",handleEditUser);
+
+userRouter.get("/delete",deleteUser);
+userRouter.get("/edit",edit);
 
 export default userRouter;
