@@ -7,7 +7,7 @@
     "url": "git+https://github.com/hwan-koo/wetube-reloaded.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/init.js"
   },
   "author": "경환",
   "license": "ISC",
@@ -17,6 +17,7 @@
   "homepage": "https://github.com/hwan-koo/wetube-reloaded#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "mongoose": "^6.7.2",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },

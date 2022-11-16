@@ -3,8 +3,7 @@ include mixins/video
 
 
 block content 
-    h2 Recommended video!
     each item in videos
         +video(item)
     else 
-        li Sorry nothing found/
+        li Sorry nothing found.
