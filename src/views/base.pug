@@ -1,30 +1,12 @@
 doctype html 
 html(lang="ko")
     head 
-        link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+        link(rel="stylesheet", href="/static/css/styles.css")
+        <script src="https://kit.fontawesome.com/d3114ad6f7.js" crossorigin="anonymous"></script>
         title #{pageTitle} | #{siteName}
     body 
-
-        header 
-            h1=pageTitle
-            nav 
-                ul 
-                    li 
-                        a(href="/") Home
-                    if loggedIn
-                        li 
-                            a(href="/users/logout") Log out
-                        li 
-                            a(href="/my-profile") #{loggedInUser.name}의 프로필
-                    else
-                        li 
-                            a(href="/join") Join
-                        li 
-                            a(href="/login") Login
-                    li 
-                        a(href="/search") Search
-                    li 
-                        a(href="/videos/upload") Upload Video
+        include partials/header
         main
             block content
-    include partials/footer
+        include partials/footer
+    script(src="/static/js/main.js")

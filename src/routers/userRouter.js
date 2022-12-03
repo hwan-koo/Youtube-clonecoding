@@ -1,13 +1,15 @@
 import express from "express";
-import { edit, startKakaoLogin,finishKakaoLogin ,logout,see,startGithubLogin,finishGithubLogin } from "../controllers/userController";
+import { getEdit, startKakaoLogin,finishKakaoLogin ,logout,see,startGithubLogin,finishGithubLogin, postEdit, getChangePassword, postChangePassword } from "../controllers/userController";
+import { avatarUpload, protetorMiddleware, publicOnlyMiddleware} from "../middlewares";
 
 const userRouter = express.Router();
 
-userRouter.get("/logout", logout);
-userRouter.get("/edit",edit);
-userRouter.get("/github/start",startGithubLogin);
-userRouter.get("/github/finish",finishGithubLogin);
-userRouter.get("/kakao/start", startKakaoLogin);
-userRouter.get("/kakao/finish", finishKakaoLogin);
-userRouter.get(":id", see);
+userRouter.get("/logout", protetorMiddleware, logout);
+userRouter.route("/edit").all(protetorMiddleware).get(getEdit).post(avatarUpload.single("avatar"),postEdit);
+userRouter.route("/change-password").all(protetorMiddleware).get(getChangePassword).post(postChangePassword);
+userRouter.get("/github/start",publicOnlyMiddleware,startGithubLogin);
+userRouter.get("/github/finish",publicOnlyMiddleware,finishGithubLogin);
+userRouter.get("/kakao/start",publicOnlyMiddleware ,startKakaoLogin);
+userRouter.get("/kakao/finish",publicOnlyMiddleware ,finishKakaoLogin);
+userRouter.get("/:id", see);
 export default userRouter;

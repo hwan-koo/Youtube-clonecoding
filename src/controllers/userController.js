@@ -1,4 +1,5 @@
 import User from "../models/User";
+import Video from "../models/Video";
 import fetch from "cross-fetch";
 import bcrypt from "bcrypt";
 import { token } from "morgan";
@@ -91,7 +92,6 @@ export const finishGithubLogin = async (req,res) => {
             }
         })
         ).json();
-        console.log(userData);
         const emailData = await (await fetch(`${apiURL}/user/emails`, {
             headers: {
                 Authorization : `token ${access_token}`
@@ -128,7 +128,7 @@ export const logout = (req,res) => {
 
 
 export const startKakaoLogin = (req,res) => {
-    const REST_API_KEY="2615c3607ac526c2f3ce9fda979aeec9"
+    const REST_API_KEY= process.env.REST_API_KEY
     const REDIRECT_URI="http://localhost:4000/users/kakao/finish"
     const baseURL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
     return res.redirect(baseURL);
@@ -179,6 +179,64 @@ export const finishKakaoLogin = async(req,res) => {
     else {
         return res.redirect("/");
     }
+};
+
+export const getEdit = (req,res) => {
+    return res.render("edit-profile" , {pageTitle:"Edit Profile"});
 }
-export const edit = (req,res) => res.send("Edit User");
-export const see =(req,res) => res.send("See User");
+export const postEdit = async (req,res) => {
+    const { 
+        session: {
+            user : {_id, avatarUrl},
+        },
+        body: {name,email,username,location},
+        file 
+    } = req;
+
+    const updatedUser = await User.findByIdAndUpdate(_id, {
+        avatarUrl: file ? file.path : avatarUrl,
+        name,email,username,location
+    }, {new: true});
+    req.session.user = updatedUser;
+    return res.redirect("/users/edit");
+}
+
+export const getChangePassword = (req,res) => {
+    if(req.session.user.socialOnly === true) {
+        return res.redirect("/");
+    }
+    return res.render("users/change-password", {pageTitle: "Change Password"})
+};
+export const postChangePassword = async (req,res) => {
+    const { 
+        session: {
+            user : {_id},
+        },
+        body: {oldPassword,newPassword,newPasswordConfirmation},
+    } = req;
+    const user = await User.findById(_id);
+    const ok = await bcrypt.compare(oldPassword,user.password);
+    if(!ok) {
+        return res.status(400).render("users/change-password",{pageTitle: "Change Password", errorMessage:"현재 비밀번호가 일치하지 않습니다."});
+    }
+    if(newPassword !== newPasswordConfirmation) {
+        return res.status(400).render("users/change-password",{pageTitle: "Change Password", errorMessage:"비밀번호가 일치하지 않습니다."});
+    }
+    user.password = newPassword;
+    await user.save();
+    return res.redirect("/users/logout");
+};
+
+export const see = async (req,res) => {
+    const {id} = req.params;;
+    const user = await User.findById(id).populate({
+        path: "videos",
+        populate: {
+            path: "owner"
+        }
+    });
+    if(!user) {
+        return res.status(404).render("404", {pageTitle: "User not Found"});
+    }
+    return res.render("users/profile", {pageTitle: `${user.name}의 Profile`, user,} );
+};
