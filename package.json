@@ -7,21 +7,12 @@
     "url": "git+https://github.com/hwan-koo/wetube-reloaded.git"
   },
   "scripts": {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    "dev": "nodemon --exec babel-node src/server.js"
-=======
     "start": "node build/init.js",
     "build": "npm run build:server && npm run build:assets",
     "build:assets": "webpack --mode=production ",
     "build:server" : "babel src -d build",
     "dev:server": "nodemon --exec babel-node src/init.js",
     "dev:assets": "webpack --mode=development -w"
->>>>>>> Stashed changes
-=======
-    "dev:server": "nodemon --exec babel-node src/init.js",
-    "dev:assets": "webpack --config webpack.config.cjs"
->>>>>>> class
   },
   "author": "경환",
   "license": "ISC",
