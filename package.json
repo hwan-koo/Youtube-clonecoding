@@ -8,13 +8,13 @@
   },
   "engines": {
     "node": "16.x",
-    "npm" : "8.x"
-    },
+    "npm": "8.x"
+  },
   "scripts": {
     "start": "node build/init.js",
     "build": "npm run build:server && npm run build:assets",
     "build:assets": "webpack --mode=production ",
-    "build:server" : "babel src -d build",
+    "build:server": "babel src -d build",
     "dev:server": "nodemon --exec babel-node src/init.js",
     "dev:assets": "webpack --mode=development -w"
   },
@@ -36,7 +36,8 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^3.3.0",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "regenerator-runtime": "^0.13.11"
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
