@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import "regenerator-runtime"
+=======
+>>>>>>> class
 import "dotenv/config";
 import "./db";
 import  "./models/Video";

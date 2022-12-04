@@ -6,6 +6,11 @@ module.exports = {
     plugins: [new MiniCssExtractPlugin({
         filename: "css/styles.css"
     })],
+<<<<<<< HEAD
+=======
+    mode: "development" ,
+    watch: true,
+>>>>>>> class
     output: {
         filename: "js/main.js",
         path: path.resolve(__dirname, "assets" ),

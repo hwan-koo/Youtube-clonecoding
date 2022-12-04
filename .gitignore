@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 /node_modules
 =======
+=======
+>>>>>>> class
 /node_modules
 .env
 /uploads
 .DS_Store
+<<<<<<< HEAD
 /assets
 /build
 >>>>>>> Stashed changes
+=======
+/assets
+>>>>>>> class
