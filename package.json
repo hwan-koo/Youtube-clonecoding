@@ -4,8 +4,12 @@
   "description": "it is clone coding",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hwan-koo/wetube-reloaded.git"
+    "url": "git+https://github.com/hwan-koo/Youtube-clonecoding.git"
   },
+  "engines": {
+    "node": "16.x",
+    "npm" : "8.x"
+    },
   "scripts": {
     "start": "node build/init.js",
     "build": "npm run build:server && npm run build:assets",
