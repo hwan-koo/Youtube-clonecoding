@@ -1,1 +1,10 @@
+<<<<<<< Updated upstream
 /node_modules
+=======
+/node_modules
+.env
+/uploads
+.DS_Store
+/assets
+/build
+>>>>>>> Stashed changes
